@@ -22,7 +22,12 @@ function getManifest(app) {
   return {};
 }
 
-Spicetify._renderNavLinks = (list, isTouchScreenUi) => {
+// Spotify calls this while rendering its top nav, which can happen before Spicetify.React is
+// available; keep the hook inside its own component and render nothing until then.
+Spicetify._renderNavLinks = (list, isTouchScreenUi) =>
+  Spicetify.React ? Spicetify.React.createElement(CustomNavLinks, { list, isTouchScreenUi }) : null;
+
+function CustomNavLinks({ list, isTouchScreenUi }) {
   const [, refresh] = Spicetify.React.useReducer((x) => x + 1, 0);
   refreshNavLinks = refresh;
 
@@ -102,7 +107,7 @@ Spicetify._renderNavLinks = (list, isTouchScreenUi) => {
     );
 
   return isTouchScreenUi ? wrapScrollableContainer(NavLinks()) : NavLinks();
-};
+}
 
 const NavLink = ({ appProper, appRoutePath, icon, activeIcon }) => {
   const isActive = Spicetify.Platform.History.location.pathname?.startsWith(appRoutePath);
