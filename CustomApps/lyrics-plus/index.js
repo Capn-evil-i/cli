@@ -11,7 +11,28 @@ const spotifyVersion = Spicetify.Platform.version;
 // Define a function called "render" to specify app entry point
 // This function will be used to mount app to main view.
 function render() {
-	return react.createElement(LyricsContainer, null);
+	return react.createElement(WaitForSpicetifyComponents, null);
+}
+
+// Spicetify fills Spicetify.ReactComponent only after Spotify's modules finish loading. When
+// lyrics-plus is the page restored at startup it renders first, and an undefined component
+// crashes the whole client ("Something went wrong").
+const REQUIRED_COMPONENTS = ["TooltipWrapper", "ContextMenu", "Menu", "MenuItem"];
+const spicetifyComponentsReady = () => REQUIRED_COMPONENTS.every((name) => Spicetify.ReactComponent?.[name]);
+
+function WaitForSpicetifyComponents() {
+	const [ready, setReady] = useState(spicetifyComponentsReady);
+	useEffect(() => {
+		if (ready) return;
+		const timer = setInterval(() => {
+			if (spicetifyComponentsReady()) {
+				clearInterval(timer);
+				setReady(true);
+			}
+		}, 100);
+		return () => clearInterval(timer);
+	}, [ready]);
+	return ready ? react.createElement(LyricsContainer, null) : null;
 }
 
 function getConfig(name, defaultVal = true) {
