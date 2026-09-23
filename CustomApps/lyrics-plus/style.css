@@ -159,9 +159,24 @@
 	text-shadow: none;
 }
 
+.lyrics-lyricsContainer-LyricsContainer.glow-enabled .lyrics-lyricsContainer-UnsyncedLyricsPage:has(> .lyrics-idling-indicator) > .lyrics-lyricsContainer-LyricsLine {
+	transition: color 0.25s cubic-bezier(0, 0, 0.58, 1), text-shadow 0.25s cubic-bezier(0, 0, 0.58, 1);
+}
+
+.lyrics-lyricsContainer-LyricsContainer.glow-enabled .lyrics-idling-indicator__circle {
+	transition-property: transform, opacity, box-shadow;
+}
+
 .lyrics-lyricsContainer-LyricsContainer.glow-enabled .lyrics-lyricsContainer-Karaoke-WordActive,
-.lyrics-lyricsContainer-LyricsContainer.glow-enabled .lyrics-lyricsContainer-SyncedLyrics .lyrics-lyricsContainer-LyricsLine-active {
+.lyrics-lyricsContainer-LyricsContainer.glow-enabled .lyrics-lyricsContainer-SyncedLyrics .lyrics-lyricsContainer-LyricsLine-active,
+.lyrics-lyricsContainer-LyricsContainer.glow-enabled .lyrics-lyricsContainer-UnsyncedLyricsPage:has(> .lyrics-idling-indicator) > .lyrics-lyricsContainer-LyricsLine-active {
 	text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+/* The idling dots are boxes rather than text, so they carry the same glow as a box-shadow.
+   !important because themes such as Bloom strip every box-shadow with * { box-shadow: none !important }. */
+.lyrics-lyricsContainer-LyricsContainer.glow-enabled .lyrics-idling-indicator__circle.active {
+	box-shadow: 0 0 15px rgba(255, 255, 255, 0.6) !important;
 }
 
 /* Themes such as Bloom add the same glow globally, so "off" has to override it. */
