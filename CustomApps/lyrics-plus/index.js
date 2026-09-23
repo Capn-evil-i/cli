@@ -64,6 +64,7 @@ const CONFIG = {
 		"hans-detect-threshold": localStorage.getItem("lyrics-plus:visual:hans-detect-threshold") || "40",
 		"musixmatch-translation-language": localStorage.getItem("lyrics-plus:visual:musixmatch-translation-language") || "none",
 		"fade-blur": getConfig("lyrics-plus:visual:fade-blur"),
+		glow: getConfig("lyrics-plus:visual:glow", true),
 		"fullscreen-key": localStorage.getItem("lyrics-plus:visual:fullscreen-key") || "f12",
 		"show-performers": getConfig("lyrics-plus:visual:show-performers", true),
 		"synced-compact": getConfig("lyrics-plus:visual:synced-compact"),
@@ -1197,8 +1198,8 @@ class LyricsContainer extends react.Component {
 			"div",
 			{
 				className: `lyrics-lyricsContainer-LyricsContainer${CONFIG.visual["fade-blur"] ? " blur-enabled" : ""}${
-					fadLyricsContainer ? " fad-enabled" : ""
-				}`,
+					CONFIG.visual.glow ? " glow-enabled" : ""
+				}${fadLyricsContainer ? " fad-enabled" : ""}`,
 				style: this.styleVariables,
 				ref: (el) => {
 					if (!el) return;

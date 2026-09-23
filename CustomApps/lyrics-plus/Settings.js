@@ -620,6 +620,11 @@ function openConfig() {
 					type: ConfigSlider,
 				},
 				{
+					desc: "Glowing lyrics",
+					key: "glow",
+					type: ConfigSlider,
+				},
+				{
 					desc: "Noise overlay",
 					key: "noise",
 					type: ConfigSlider,

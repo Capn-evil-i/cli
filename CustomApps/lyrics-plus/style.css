@@ -145,6 +145,31 @@
 	filter: blur(calc(var(--blur-index) * 1.5px));
 }
 
+.lyrics-lyricsContainer-LyricsContainer.glow-enabled .lyrics-lyricsContainer-LyricsLine {
+	text-shadow: none;
+}
+
+.lyrics-lyricsContainer-LyricsContainer.glow-enabled .lyrics-lyricsContainer-SyncedLyrics .lyrics-lyricsContainer-LyricsLine {
+	transition-property: transform, color, opacity, text-shadow !important;
+}
+
+.lyrics-lyricsContainer-LyricsContainer.glow-enabled .lyrics-lyricsContainer-Karaoke-Word {
+	transition: var(--word-duration) color ease,
+		var(--word-duration) text-shadow ease !important;
+	text-shadow: none;
+}
+
+.lyrics-lyricsContainer-LyricsContainer.glow-enabled .lyrics-lyricsContainer-Karaoke-WordActive,
+.lyrics-lyricsContainer-LyricsContainer.glow-enabled .lyrics-lyricsContainer-SyncedLyrics .lyrics-lyricsContainer-LyricsLine-active {
+	text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+/* Themes such as Bloom add the same glow globally, so "off" has to override it. */
+.lyrics-lyricsContainer-LyricsContainer:not(.glow-enabled) .lyrics-lyricsContainer-Karaoke-WordActive,
+.lyrics-lyricsContainer-LyricsContainer:not(.glow-enabled) .lyrics-lyricsContainer-SyncedLyrics .lyrics-lyricsContainer-LyricsLine-active {
+	text-shadow: none;
+}
+
 .lyrics-lyricsContainer-UnsyncedLyricsPage .lyrics-lyricsContainer-LyricsLine a {
 	color: var(--lyrics-color-active);
 }
