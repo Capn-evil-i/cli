@@ -418,7 +418,7 @@ class SearchBar extends react.Component {
 
 	componentDidMount() {
 		this.viewPort = document.querySelector(".main-view-container .os-viewport");
-		this.mainViewOffsetTop = document.querySelector(".Root__main-view").offsetTop;
+		this.mainViewOffsetTop = document.querySelector(":is(.Root__main-view, #main-view)")?.offsetTop ?? 0;
 		this.toggleCallback = () => {
 			if (!(Spicetify.Platform.History.location.pathname === "/lyrics-plus" && this.container)) return;
 

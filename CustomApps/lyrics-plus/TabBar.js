@@ -64,14 +64,14 @@ const TabBarMore = react.memo(({ items, switchTo, lockIn }) => {
 
 const TopBarContent = ({ links, activeLink, lockLink, switchCallback, lockCallback }) => {
 	const resizeHost = document.querySelector(
-		".Root__main-view .os-resize-observer-host, .Root__main-view .os-size-observer, .Root__main-view .main-view-container__scroll-node"
+		":is(.Root__main-view, #main-view) .os-resize-observer-host, :is(.Root__main-view, #main-view) .os-size-observer, :is(.Root__main-view, #main-view) .main-view-container__scroll-node"
 	);
-	const [windowSize, setWindowSize] = useState(resizeHost.clientWidth);
-	const resizeHandler = () => setWindowSize(resizeHost.clientWidth);
+	const [windowSize, setWindowSize] = useState(resizeHost?.clientWidth ?? window.innerWidth);
+	const resizeHandler = () => setWindowSize(resizeHost?.clientWidth ?? window.innerWidth);
 
 	useEffect(() => {
 		const observer = new ResizeObserver(resizeHandler);
-		observer.observe(resizeHost);
+		if (resizeHost) observer.observe(resizeHost);
 		return () => {
 			observer.disconnect();
 		};
